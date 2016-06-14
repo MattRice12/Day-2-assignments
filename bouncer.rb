@@ -10,8 +10,21 @@
 
 def check_age
   puts "Howdy do, how old are you? "
-  gets.chomp
+  gets.chomp.to_i
 end
 
+under_eighteen = ["do nothing"]
+over_eighteen = ["smoke", "vote"].join(", and ")
+over_twenty_one = [over_eighteen, "drink"].join(", and ")
+over_twenty_five = [over_twenty_one, "rent a car"].join(", and ")
+
 age = check_age
-check_age
+if age < 18
+  puts "You can #{under_eighteen}"
+elsif (age >= 18) && (age < 21)
+  puts "You can #{over_eighteen}"
+elsif age >= 21
+  puts "You can #{over_twenty_one}"
+elsif age >= 25
+  puts "You can #{over_twenty_five}"
+end
