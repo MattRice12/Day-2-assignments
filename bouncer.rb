@@ -14,17 +14,31 @@ def check_age
 end
 
 under_eighteen = ["do nothing"]
-over_eighteen = ["smoke", "vote"].join(", and ")
-over_twenty_one = [over_eighteen, "drink"].join(", and ")
-over_twenty_five = [over_twenty_one, "rent a car"].join(", and ")
+over_eighteen = ["smoke", "vote"]
+over_twenty_one = [over_eighteen, "drink"]
+over_twenty_five = [over_twenty_one, "rent a car"]
 
 age = check_age
-if age < 18
-  puts "You can #{under_eighteen}"
+loop do
+if (age < 18) && (age > 1)
+  puts "You can #{under_eighteen.join}."
+  break
 elsif (age >= 18) && (age < 21)
-  puts "You can #{over_eighteen}"
-elsif age >= 21
-  puts "You can #{over_twenty_one}"
+  last_elem = over_eighteen.pop
+  puts "You can #{over_eighteen.join} and #{last_elem}."
+  break
+elsif (age >= 21) && (age < 25)
+  last_elem = over_twenty_one.pop
+  puts "You can #{over_twenty_one.join(", ")}, and #{last_elem}."
+  break
 elsif age >= 25
-  puts "You can #{over_twenty_five}"
+  last_elem = over_twenty_five.pop
+  puts "You can #{over_twenty_five.join(", ")}, and #{last_elem}."
+  break
+else
+  puts "That is not an age."
+  puts "Tell me your REAL age!"
+  puts
+  age = check_age
+end
 end
