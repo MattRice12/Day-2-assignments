@@ -27,8 +27,10 @@ Good Luck!"
   puts
 end
 
+
+
 def computer_choice # computer generates random choice
-  $options = ["paper", "rock", "scissors"].sample
+  options = ["paper", "rock", "scissors"].sample
 end
 
 def player_choice # prompt player to input choice
@@ -40,28 +42,30 @@ def player_choice # prompt player to input choice
 end
 
 def translate_player_choice # simplify input into "paper", "rock", or "scissors"
-  $response = player_choice
-    case $response.downcase
-    when $response = "p", "paper"
+  response = player_choice
+    case response.downcase
+    when response = "p", "paper"
       player_choice = "paper"
-    when $response = "r", "rock"
+    when response = "r", "rock"
       player_choice = "rock"
-    when $response = "s", "scissors", "scissor"
+    when response = "s", "scissors", "scissor"
       player_choice = "scissors"
   end
 end
 
+
 def feedback_on_choice # tell player what he chose
-  $response = translate_player_choice
+  system("clear")
+  greeting
+  response = translate_player_choice
   count = 0
   loop do
     puts
-    case $response
+    case response
     when "paper", "rock", "scissors"
-      puts "You chose #{$response.upcase}!"
-      puts "The computer chose #{$options.upcase}!"
+      puts "You chose #{response.upcase}!"
       break
-    else  # for when the $response is incorrect.
+    else  # for when the response is incorrect.
           # I should try to put this in a new method.
           # 1 hours later... Tried. Didn't work.
       puts "You're choice was a little off. Make sure you're playing \
@@ -70,8 +74,8 @@ the correct game and try again!"
       count +=1
         if count >= 2
           puts "Would you like to (q)uit or keep (p)laying?"
-          $response = gets.chomp
-            case $response
+          response = gets.chomp
+            case response
             when "q", "quit"
               puts
               puts "Goodbye!"
@@ -80,55 +84,30 @@ the correct game and try again!"
               puts
               system("clear")
               count = 0
-              $response = translate_player_choice
+              response = translate_player_choice
             end
         else
-          $response = translate_player_choice
+          response = translate_player_choice
         end
     end
   end
 end
 
-def game_result # core of the game
-  system("clear")
-  loop do
-    computer_choice
-    feedback_on_choice
+def game # core of the game
+    play_game = feedback_on_choice
+    case play_game
+    when player_choice = computer_choice
+      puts "The computer chose #{computer_choice.upcase}!"
+      puts "Tie! Try again!"
 
-    if $response == $options
-      puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} ----- IT'S A TIE!"
-      puts "Play again"
-      puts
     else
-      if $response == "paper" && $options == "rock"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} \
------ PLAYER WINS"
-      elsif $response == "paper" && $options == "scissors"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} \
------ PLAYER LOSES"
-        puts "Best 2 out of 3?"
-      elsif $response == "rock" && $options == "paper"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} \
------ PLAYER LOSES"
-      elsif $response == "rock" && $options == "scissors"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} \
------ PLAYER WINS"
-      elsif $response == "scissors" && $options == "paper"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} \
------ PLAYER WINS"
-      elsif $response == "scissors" && $options == "rock"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} \
------ PLAYER LOSES"
-      end
-      break
-    end
+      puts "The computer chose #{computer_choice.downcase}!"
+      puts "line 105 doesn't work"
+
   end
 end
 
-"Player: ROCK vs Computer: SCISSORS ----- PLAYER WINS"
-
-greeting
-game_result
+game
 
 
 # translate player's choice to "paper", "rock", or "scissors"
