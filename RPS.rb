@@ -27,7 +27,7 @@ Good Luck!"
 end
 
 def computer_choice # computer generates random choice
-  $options = ["paper", "rock", "scissors"].sample
+  options = ["paper", "rock", "scissors"].sample
 end
 
 def player_choice # prompt player to input choice
@@ -39,13 +39,13 @@ def player_choice # prompt player to input choice
 end
 
 def translate_player_choice # simplify input into "paper", "rock", or "scissors"
-  $response = player_choice
-    case $response.downcase
-    when $response = "p", "paper"
+  response = player_choice
+    case response.downcase
+    when "p", "paper"
       player_choice = "paper"
-    when $response = "r", "rock"
+    when "r", "rock"
       player_choice = "rock"
-    when $response = "s", "scissors", "scissor"
+    when "s", "scissors", "scissor"
       player_choice = "scissors"
   end
 end
@@ -55,14 +55,14 @@ def feedback_on_choice # originally was to list player and computer choice;
                        # but I'm not sure how to get rid of it
                        # without breaking the program.
                        # I need something like "when not 'paper'...etc."
-  $response = translate_player_choice
+  response = translate_player_choice
   count = 0
   loop do
     puts
-    case $response
+    case response
     when "paper", "rock", "scissors"
       break
-    else  # for when the $response is incorrect.
+    else  # for when the response is incorrect.
       puts "You're choice was a little off. Make sure you're playing \
 the correct game and try again!"
       puts "___________________________________________________________________________"
@@ -70,8 +70,8 @@ the correct game and try again!"
       count +=1
         if count >= 2
           puts "Would you like to (q)uit or keep (p)laying?"
-          $response = gets.chomp
-            case $response
+          response = gets.chomp
+            case response
             when "q", "quit"
               puts
               puts "Goodbye!"
@@ -80,51 +80,50 @@ the correct game and try again!"
               puts
               system("clear")
               count = 0
-              $response = translate_player_choice
+              response = translate_player_choice
             end
-        else
-          $response = translate_player_choice
+
+          response = translate_player_choice
         end
     end
   end
+  response
 end
 
 def game_result # core of the game
   loop do
-    computer_choice
-    feedback_on_choice
+    options = computer_choice
+    response = feedback_on_choice
 
-    if $response == $options
-      puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} ----- IT'S A TIE!"
+    if response == options
+      puts "Player: #{response.upcase} vs Computer: #{options.upcase} ----- IT'S A TIE!"
       puts "No pressure, just chose again!"
       puts "___________________________________________________________________________"
       puts
     else
-      if $response == "paper" && $options == "rock"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} ----- PLAYER WINS"
+      if response == "paper" && options == "rock"
+        puts "Player: #{response.upcase} vs Computer: #{options.upcase} ----- PLAYER WINS"
         puts "Congrats, you survived!"
-      elsif $response == "paper" && $options == "scissors"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} ----- PLAYER LOSES"
+      elsif response == "paper" && options == "scissors"
+        puts "Player: #{response.upcase} vs Computer: #{options.upcase} ----- PLAYER LOSES"
         puts "Too bad, you died. Better luck next time!"
-      elsif $response == "rock" && $options == "paper"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} ----- PLAYER LOSES"
+      elsif response == "rock" && options == "paper"
+        puts "Player: #{response.upcase} vs Computer: #{options.upcase} ----- PLAYER LOSES"
         puts "Too bad, you died. Better luck next time!"
-      elsif $response == "rock" && $options == "scissors"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} ----- PLAYER WINS"
+      elsif response == "rock" && options == "scissors"
+        puts "Player: #{response.upcase} vs Computer: #{options.upcase} ----- PLAYER WINS"
         puts "Congrats, you survived!"
-      elsif $response == "scissors" && $options == "paper"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} ----- PLAYER WINS"
+      elsif response == "scissors" && options == "paper"
+        puts "Player: #{response.upcase} vs Computer: #{options.upcase} ----- PLAYER WINS"
         puts "Congrats, you survived!"
-      elsif $response == "scissors" && $options == "rock"
-        puts "Player: #{$response.upcase} vs Computer: #{$options.upcase} ----- PLAYER LOSES"
+      elsif response == "scissors" && options == "rock"
+        puts "Player: #{response.upcase} vs Computer: #{options.upcase} ----- PLAYER LOSES"
         puts "Too bad, you died. Better luck next time!"
       end
       break
     end
   end
 end
-
-"Player: ROCK vs Computer: SCISSORS ----- PLAYER WINS"
 
 system("clear")
 greeting
