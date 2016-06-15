@@ -18,7 +18,7 @@
 
 #_______________________________________________________________
 
-# greet user
+# greet player
 def greeting
   puts "Welcome to the most dangerous game of Rock, Paper, Scissors /
 you have ever played. Your choice may very well decide your fate! /
@@ -28,11 +28,10 @@ end
 
 
 def computer_choice # computer generates random choice
-  options = ["paper", "rock", "scissors"]
-  options.sample
+  options = ["paper", "rock", "scissors"].sample
 end
 
-def user_choice # prompt user to input choice
+def player_choice # prompt player to input choice
   puts "When you are ready to being, please select your favorite option!"
   puts "(p)aper \n(r)ock \n(s)cissors"
 
@@ -40,23 +39,38 @@ def user_choice # prompt user to input choice
               # it's scope isn't limited to this method)
 end
 
-def feedback_on_choice
-  response = user_choice
+def translate_player_choice # simplify input into "paper", "rock", or "scissors"
+  response = player_choice
+  case response.downcase
+  when response = "p", "paper"
+    player_choice = "paper"
+  when response = "r", "rock"
+    player_choice = "rock"
+  when response = "s", "scissors", "scissor"
+    player_choice = "scissors"
+  end
+end
+
+
+def feedback_on_choice # tell player what he chose
+  system("clear")
+  response = translate_player_choice
   count = 0
   loop do
     puts
     case response
-
-    when "p", "paper"
-      puts "You chose paper!"
+    when "paper"
+      puts "You chose PAPER!"
       break
-    when "r", "rock"
-      puts "You chose rock!"
+    when "rock"
+      puts "You chose ROCK!"
       break
-    when "s", "scissor", "scissors"
-      puts "You chose scissors!"
+    when "scissors"
+      puts "You chose SCISSORS!"
       break
-    else
+    else  # for when the response is incorrect.
+          # I should try to put this in a new method.
+          # 1 hours later... Tried. Didn't work.
       puts "You're choice was a little off. Make sure you're playing \
 the correct game and try again!"
       puts
@@ -66,13 +80,17 @@ the correct game and try again!"
           response = gets.chomp
             case response
             when "q", "quit"
+              puts
               puts "Goodbye!"
               break
-            when "p", "play", "play again"
-              response = user_choice
+            when "p", "play", "play again", "playing"
+              puts
+              system("clear")
+              count = 0
+              response = translate_player_choice
             end
         else
-          response = user_choice
+          response = translate_player_choice
         end
     end
   end
@@ -80,6 +98,21 @@ end
 
 feedback_on_choice
 
-def unknown_input # for when user inputs something other than PRS
-  puts "Sorry, that is not a valid option."
+
+def game # core of the game
+  puts "The computer chose #{computer_choice.upcase}!"
+
+  if translate_player_choice = computer_choice
+    puts "line 105 works"
+
+  end
 end
+game
+
+
+# translate player's choice to "paper", "rock", or "scissors"
+# compare player_choice to computer_choice
+# set victory conditions (maybe do this in a dif method)
+# set messages based on game outcome
+# best 2 out of 3? (maybe do this in a dif method)
+# option to play again (maybe do this in a dif method)
