@@ -129,11 +129,3 @@ end
 system("clear")
 greeting
 game_result
-
-
-# translate player's choice to "paper", "rock", or "scissors"
-# compare player_choice to computer_choice
-# set victory conditions (maybe do this in a dif method)
-# set messages based on game outcome
-# best 2 out of 3? (maybe do this in a dif method)
-# option to play again (maybe do this in a dif method)
