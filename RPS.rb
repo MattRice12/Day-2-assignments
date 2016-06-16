@@ -82,7 +82,7 @@ the correct game and try again!"
               count = 0
               response = translate_player_choice
             end
-
+        else
           response = translate_player_choice
         end
     end
